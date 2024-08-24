@@ -1,0 +1,26 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "author": "Aditya Jha",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon --env-file=.env app.js"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "http-status-codes": "^2.3.0",
+    "jsonwebtoken": "^9.0.2",
+    "jwt": "^0.2.0",
+    "moment": "^2.30.1",
+    "moment-range": "^4.0.2",
+    "mongoose": "^8.5.3",
+    "sequelize": "^6.37.3",
+    "winston": "^3.14.2"
+  }
+}
