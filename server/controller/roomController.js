@@ -64,7 +64,7 @@ async function getSingleRoom(req, res) {
         const room = await Room.findById(room_id);
 
         if (!room) {
-            return res.status(StatusCodes.NOT_FOUND).json({ message: "Room not found" });
+            res.status(StatusCodes.NOT_FOUND).json({ message: "Room not found" });
         }
 
         res.status(StatusCodes.OK).json({ room });
@@ -94,7 +94,7 @@ async function updateRoom(req, res) {
         const room = await Room.findByIdAndUpdate(room_id, updated_room_property, { new: true });
 
         if (!room) {
-            return res.status(StatusCodes.NOT_FOUND).json({ message: "Room not found" });
+            res.status(StatusCodes.NOT_FOUND).json({ message: "Room not found" });
         }
 
         res.status(StatusCodes.OK).json({ room });
@@ -111,7 +111,7 @@ async function deleteRoom(req, res) {
         const room = await Room.findByIdAndDelete(room_id);
 
         if (!room) {
-            return res.status(StatusCodes.NOT_FOUND).json({ message: "Room not found" });
+            res.status(StatusCodes.NOT_FOUND).json({ message: "Room not found" });
         }
 
         res.status(StatusCodes.OK).json({ message: "Room deleted successfully" });
@@ -128,7 +128,7 @@ async function reviewRoom(req, res) {
         const room = await Room.findById(room_id);
 
         if (!room) {
-            return res.status(StatusCodes.NOT_FOUND).json({ message: "Room not found" });
+            res.status(StatusCodes.NOT_FOUND).json({ message: "Room not found" });
         }
 
         const is_already_reviewed =
@@ -136,13 +136,13 @@ async function reviewRoom(req, res) {
             room.reviews.some(review => review.user.toString() === req.user._id.toString());
 
         if (is_already_reviewed) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ message: "Room already reviewed" });
+            res.status(StatusCodes.BAD_REQUEST).json({ message: "Room already reviewed" });
         }
 
         const { rating, comment } = req.body;
 
         if (!rating) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ message: "Rating is required" });
+            res.status(StatusCodes.BAD_REQUEST).json({ message: "Rating is required" });
         }
 
         const review = {

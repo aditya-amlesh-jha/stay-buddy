@@ -8,13 +8,13 @@ async function registerUser(req, res) {
         const { name, email, password } = req.body;
 
         if (!name || !email || !password) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ message: "All fields are required" });
+            res.status(StatusCodes.BAD_REQUEST).json({ message: "All fields are required" });
         }
 
         const existingUser = await User.findOne({ email });
 
         if (existingUser) {
-            return res.status(StatusCodes.CONFLICT).json({ message: "User already exists" });
+            res.status(StatusCodes.CONFLICT).json({ message: "User already exists" });
         }
 
         const user = new User({
@@ -45,17 +45,17 @@ async function loginUser(req, res) {
         const { email, password } = req.body;
 
         if (!email || !password) {
-            return res.status(StatusCodes.BAD_REQUEST).json({ message: "Email and password are required" });
+            res.status(StatusCodes.BAD_REQUEST).json({ message: "Email and password are required" });
         }
 
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Invalid email or password" });
+            res.status(StatusCodes.UNAUTHORIZED).json({ message: "Invalid email or password" });
         }
 
         if (!(await user.comparePassword(password))) {
-            return res.status(StatusCodes.UNAUTHORIZED).json({ message: "Invalid email or password" });
+            res.status(StatusCodes.UNAUTHORIZED).json({ message: "Invalid email or password" });
         }
 
         const token = generate_token(user._id);

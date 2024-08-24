@@ -10,7 +10,7 @@ async function updateUser(req, res) {
         const user = await User.findById(user_id);
 
         if (!user) {
-            return res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
+            res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
         }
 
         user.name = name || user.name;
@@ -35,7 +35,7 @@ async function deleteUser(req, res) {
         const deleted_user = await User.findByIdAndDelete(user_id);
 
         if (!deleted_user) {
-            return res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
+            res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
         }
 
         res.status(StatusCodes.OK).json({ message: "User deleted successfully" });
@@ -50,13 +50,13 @@ async function getUser(req, res) {
         const { user_id } = req.params;
 
         if(req.user._id.toString() !== user_id ){
-            return res.status(StatusCodes.FORBIDDEN).json({ message: "Not Authorized!" });
+            res.status(StatusCodes.FORBIDDEN).json({ message: "Not Authorized!" });
         }
 
         const user = await User.findById(user_id);
 
         if (!user) {
-            return res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
+            res.status(StatusCodes.NOT_FOUND).json({ message: "User not found" });
         }
 
         res.status(StatusCodes.OK).json({ user });
